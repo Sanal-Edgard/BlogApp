@@ -87,7 +87,7 @@
         android:layout_height="61dp"
         android:background="@drawable/reg_btn_style"
         android:text="Button"
-        android:textColor="ffffff"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
