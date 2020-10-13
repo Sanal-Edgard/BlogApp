@@ -30,6 +30,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
+
+    //fb auth
+    implementation 'com.google.firebase:firebase-auth'
+    //fb core
+    implementation 'com.google.firebase:firebase-core'
+    //fb srorage
+    implementation 'com.google.firebase:firebase-storage'
 }
 
 apply plugin: 'com.android.application'
