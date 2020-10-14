@@ -154,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUri() {
-        Intent homeActivity = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent homeActivity = new Intent(getApplicationContext(), Home.class);
         startActivity(homeActivity);
         finish();
     }
