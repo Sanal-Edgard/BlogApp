@@ -14,6 +14,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
+        android:hint="Description"
         android:id="@+id/popup_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_title" />
 
     <ImageView
+        android:background="#2d2d2d"
         android:id="@+id/popup_image"
         android:layout_width="392dp"
         android:layout_height="268dp"
@@ -61,6 +63,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <ProgressBar
+        android:background="@drawable/circle_bg"
         android:visibility="invisible"
         android:id="@+id/popup_rogressBar"
         style="?android:attr/progressBarStyle"

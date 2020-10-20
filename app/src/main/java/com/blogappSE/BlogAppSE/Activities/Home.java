@@ -1,11 +1,16 @@
 package com.blogappSE.BlogAppSE.Activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +42,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     private AppBarConfiguration mAppBarConfiguration;
+    Dialog popAddPost;
+
+    ImageView popupUserImage, popupPostImage, popupAddBtn;
+    TextView popupTitle, popupDescription;
+    ProgressBar popupClickProgress;
 
 
     @Override
@@ -49,25 +59,56 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         setSupportActionBar(toolbar);
+        
+        iniPopup();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                popAddPost.show();
             }
 
 
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, "", "Close navigation drawer" );
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close );
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
         updateNavHeader();
+    }
+
+    private void iniPopup() {
+        popAddPost = new Dialog(this);
+        popAddPost.setContentView(R.layout.popup_add_post);
+        popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
+        popAddPost.getWindow().getAttributes().gravity = Gravity.TOP;
+
+
+
+//инициализируем поля
+        popupUserImage = popAddPost.findViewById(R.id.popup_user_image);
+        popupPostImage = popAddPost.findViewById(R.id.popup_image);
+        popupTitle = popAddPost.findViewById(R.id.popup_title);
+        popupDescription = popAddPost.findViewById(R.id.popup_description);
+        popupAddBtn = popAddPost.findViewById(R.id.popup_add);
+        popupClickProgress = popupAddBtn.findViewById(R.id.popup_rogressBar);
+
+        //загружаем фото пользователя
+        Glide.with(Home.this).load(currentUser.getPhotoUrl()).into(popupUserImage);
+
+        popupAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupAddBtn.setVisibility(View.INVISIBLE);
+                popupClickProgress.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
